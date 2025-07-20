@@ -39,3 +39,4 @@ django-jazzmin==3.0.1
 #  - CVS to Model
 #  - Loader 
 # pandas==2.2.3
+gunicorn==21.2.0
