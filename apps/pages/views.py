@@ -24,7 +24,7 @@ from apps.db.business_partners.bp_query import fetch_bp_data
 from apps.db.employees.employee_query import fetch_e_data
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
-
+#
 
 
 from .forms import Store_Search, MyModelForm, RC_Search
