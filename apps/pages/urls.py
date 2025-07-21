@@ -25,6 +25,12 @@ urlpatterns = [
     path("add_store/", views.store_add, name="stores_add"),
     path("regional_coaches/", views.r_c, name="r_c"),
     path("add_regional_coach/", views.add_rc, name="add_rc"),
+    path("area_coaches/", views.a_c, name="a_c"),
+    path("add_area_coach/", views.add_ac, name="add_ac"),
+    path("business_partners/", views.b_p, name="b_p"),
+    path("add_business_partner/", views.add_bp, name="add_bp"),
+    path("employees/", views.e_, name="e_"),
+    #path("add_employee/", views.add_e, name="add_e"),
     path("test/", views.test, name="test"),
 
 
@@ -42,38 +48,38 @@ urlpatterns = [
     path("pages/users/reports/", views.reports, name="reports"),
     path("pages/users/new-user/", views.new_user, name="new_user"),
     # Pages -> Accounts
-
+    #
     path("pages/accounts/billing/", views.billing, name="billing"),
     path("pages/accounts/invoice/", views.invoice, name="invoice"),
     path("pages/accounts/security/", views.security, name="security"),
-    # Pages -> Porjects
-    path("pages/projects/general/", views.general, name="general"),
-    path("pages/projects/timeline/", views.timeline, name="timeline"),
-    path("pages/projects/new-project/", views.new_project, name="new_project"),
-    # Applications
-    path("applications/datatables/", views.datatables, name="datatables"),
-    path("applications/calendar/", views.calendar, name="calendar"),
-    path("applications/analytics/", views.analytics, name="analytics"),
-    # Ecommerce
-    path("ecommerce/overview/", views.overview, name="overview"),
-    path("ecommerce/referral/", views.referral, name="referral"),
-    # Ecommerce -> Products
-    path("ecommerce/products/new-product/", views.new_product, name="new_product"),
-    path("ecommerce/products/edit-product/", views.edit_product, name="edit_product"),
-    path("ecommerce/products/product-page/", views.product_page, name="product_page"),
-    path(
-        "ecommerce/products/products-list/", views.products_list, name="products_list"
-    ),
-    # Ecommerce -> Orders
-    path("ecommerce/orders/order-list", views.order_list, name="order_list"),
-    path("ecommerce/orders/order-details", views.order_details, name="order_details"),
-    # Teams
-    path("team/messages/", views.team_messages, name="team_messages"),
-    path("team/new-user/", views.team_new_user, name="team_new_user"),
-    path("team/overview/", views.team_overview, name="team_overview"),
-    path("team/projects/", views.team_projects, name="team_projects"),
-    path("team/reports/", views.team_reports, name="team_reports"),
-    path("team/teams/", views.team_teams, name="team_teams"),
+    # # Pages -> Porjects
+    # path("pages/projects/general/", views.general, name="general"),
+    # path("pages/projects/timeline/", views.timeline, name="timeline"),
+    # path("pages/projects/new-project/", views.new_project, name="new_project"),
+    # # Applications
+    # path("applications/datatables/", views.datatables, name="datatables"),
+    # path("applications/calendar/", views.calendar, name="calendar"),
+    # path("applications/analytics/", views.analytics, name="analytics"),
+    # # Ecommerce
+    # path("ecommerce/overview/", views.overview, name="overview"),
+    # path("ecommerce/referral/", views.referral, name="referral"),
+    # # Ecommerce -> Products
+    # path("ecommerce/products/new-product/", views.new_product, name="new_product"),
+    # path("ecommerce/products/edit-product/", views.edit_product, name="edit_product"),
+    # path("ecommerce/products/product-page/", views.product_page, name="product_page"),
+    # path(
+    #     "ecommerce/products/products-list/", views.products_list, name="products_list"
+    # ),
+    # # Ecommerce -> Orders
+    # path("ecommerce/orders/order-list", views.order_list, name="order_list"),
+    # path("ecommerce/orders/order-details", views.order_details, name="order_details"),
+    # # Teams
+    # path("team/messages/", views.team_messages, name="team_messages"),
+    # path("team/new-user/", views.team_new_user, name="team_new_user"),
+    # path("team/overview/", views.team_overview, name="team_overview"),
+    # path("team/projects/", views.team_projects, name="team_projects"),
+    # path("team/reports/", views.team_reports, name="team_reports"),
+    # path("team/teams/", views.team_teams, name="team_teams"),
     # Authentication -> Register
     path(
         "accounts/register/basic-register/", views.basic_register, name="basic_register"

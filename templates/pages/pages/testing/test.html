@@ -101,8 +101,13 @@
               <h3 class="mb-0">Add RC Assignment</h3>
             <div align="center">
               <form action="" method="GET">
-                  {{ form2.as_p }}
+                <div class="fieldWrapper">
+                  <label for="id_subject">Select Store:</label>
                   {{ form.as_p }}
+
+                </div>
+                  {{ form2.as_p }}
+
                 <label for="sdInput">Start Date:</label>
                 <input type="text" name="sdInput" placeholder="Enter Date">
                 <label for="edInput">End Date:</label>
@@ -113,7 +118,7 @@
                 <input type="text" name="nameInput" placeholder="Your Username">
                 <br>
                 <br>
-                <input onclick="location.href='{% url 'r_c' %}'" type='submit' name='button' value="Submit">
+                <input onclick="location.href='{% url 'test' %}'" type='submit' name='button' value="Submit">
 
               </form>
             </div>

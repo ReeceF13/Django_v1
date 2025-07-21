@@ -156,7 +156,7 @@ class Store_Search(forms.Form):
 
     my_dropdown = forms.ChoiceField(
         choices=[],
-        label="Select Store"
+
     )
 class RC_Search(forms.Form):
     def __init__(self, *args, **kwargs):
@@ -165,10 +165,11 @@ class RC_Search(forms.Form):
         try:
             with conn.cursor() as cursor:
                 # Single query to get both id and name
-                cursor.execute("SELECT id, first_name FROM RegionalCoaches")
+                cursor.execute("SELECT id, first_name, last_name FROM RegionalCoaches")
                 rc_s = dictfetchall(cursor)
 
                 # Create choices list properly
+                ordering = ['last_name', 'first_name']
                 self.fields['my_dropdown'].choices = [
                     (rc_['id'], rc_['first_name'])
                     for rc_ in rc_s

@@ -13,9 +13,15 @@ from apps.pages.forms import (
     UserPasswordChangeForm,
 )
 from django.contrib.auth import logout
+
+
+#CLASS IMPORTS
 from apps.db.regions.region_query import fetch_region_data
 from apps.db.stores.store_query import fetch_store_data
 from apps.db.regional_coaches.rc_query import fetch_regional_coach_data
+from apps.db.area_coaches.ac_query import fetch_area_coach_data
+from apps.db.business_partners.bp_query import fetch_bp_data
+from apps.db.employees.employee_query import fetch_e_data
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from apps.pages.models import Region_r
@@ -126,7 +132,7 @@ def regions_add(request):
                             "VALUES (?,?,?,?,?)",
                            row['region_name'], row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
             cursor.commit()
-            return render(request, "pages/pages/region_added_table.html", context)
+            return render(request, "pages/pages/records_added_pages/region_added_table.html", context)
 
     return render(request, "pages/pages/add_records/add_region.html")
 
@@ -172,7 +178,7 @@ def store_add(request):
                            row['KSA'], row['Store'], row['Region'], row['Head_Office'], row['Create_Time'], row['Updated_Time'], row['User'], row['Updated_By_User'])
             cursor.commit()
 
-            return render(request, "pages/pages/add_records/store_added_table.html")
+            return render(request, "pages/pages/add_records/records_added_pages/store_added_table.html")
     return render(request, "pages/pages/add_records/add_store.html")
 ##REGIONAL COACHES
 def r_c(request):
@@ -215,20 +221,158 @@ def add_rc(request):
                 row['F_Name'], row['L_Name'], row['Cell'], row['Email'], row['EMP_Code'], row['is_active'],
                 row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
             cursor.commit()
-            return render(request, "pages/pages/add_records/rc_added.html")
+            return render(request, "pages/pages/add_records/records_added_pages/rc_added.html")
     return render(request, "pages/pages/add_records/add_regional_coach.html")
+
+#AREA COACHES
+def a_c(request):
+    ac_one = fetch_area_coach_data()
+    ac_ = ac_one.ac_data()
+    context = {'html_table': ac_}
+    return render(request, "pages/pages/area_coaches.html", context)
+
+def add_ac(request):
+    now_ = datetime.now().replace(microsecond=0)
+    if 'fnInput' in request.GET:
+        fn_input = request.GET['fnInput'].upper()
+    if 'lnInput' in request.GET:
+        ln_input = request.GET['lnInput'].upper()
+    if 'cInput' in request.GET:
+        c_input = request.GET['cInput']
+    if 'eInput' in request.GET:
+        e_input = request.GET['eInput'].upper()
+    if 'empInput' in request.GET:
+        emp_input = request.GET['empInput']
+    if 'activeInput' in request.GET:
+        active_input = request.GET['activeInput']
+    if 'nameInput' in request.GET:
+        name_input = request.GET['nameInput']
+        cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for i in id_row.values:
+            i1 = (str(i[0]))
+        # print(i1)
+
+        dfs = pd.DataFrame(
+            columns=['F_Name', 'L_Name', 'Cell', 'Email', 'EMP_Code', 'is_active', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+        dfs.loc[0] = fn_input, ln_input, c_input, e_input, emp_input, active_input, now_, now_, i1, i1,
+        # print(dfs.to_string())
+        for index, row in dfs.iterrows():
+            cursor.execute(
+                "INSERT INTO AreaCoaches (first_name, last_name, cell_phone, email_address, employee_code, is_active, created_at, updated_at, created_by_id, updated_by_id) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                row['F_Name'], row['L_Name'], row['Cell'], row['Email'], row['EMP_Code'], row['is_active'],
+                row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+            cursor.commit()
+            return render(request, "pages/pages/add_records/records_added_pages/ac_added.html")
+    return render(request, "pages/pages/add_records/add_area_coach.html")
+#BUSINESS PARTNERS
+def b_p(request):
+    bp_one = fetch_bp_data()
+    bp_ = bp_one.bp_data()
+    context = {'html_table': bp_}
+    return render(request, "pages/pages/business_partners.html", context)
+
+def add_bp(request):
+    now_ = datetime.now().replace(microsecond=0)
+    if 'fnInput' in request.GET:
+        fn_input = request.GET['fnInput'].upper()
+    if 'lnInput' in request.GET:
+        ln_input = request.GET['lnInput'].upper()
+    if 'cInput' in request.GET:
+        c_input = request.GET['cInput']
+    if 'eInput' in request.GET:
+        e_input = request.GET['eInput'].upper()
+    if 'empInput' in request.GET:
+        emp_input = request.GET['empInput']
+    if 'activeInput' in request.GET:
+        active_input = request.GET['activeInput']
+    if 'nameInput' in request.GET:
+        name_input = request.GET['nameInput']
+        cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for i in id_row.values:
+            i1 = (str(i[0]))
+        # print(i1)
+
+        dfs = pd.DataFrame(
+            columns=['F_Name', 'L_Name', 'Cell', 'Email', 'EMP_Code', 'is_active', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+        dfs.loc[0] = fn_input, ln_input, c_input, e_input, emp_input, active_input, now_, now_, i1, i1,
+        # print(dfs.to_string())
+        for index, row in dfs.iterrows():
+            cursor.execute(
+                "INSERT INTO BusinessPartners (first_name, last_name, cell_phone, email_address, employee_code, is_active, created_at, updated_at, created_by_id, updated_by_id) "
+                "VALUES (?,?,?,?,?,?,?,?,?,?)",
+                row['F_Name'], row['L_Name'], row['Cell'], row['Email'], row['EMP_Code'], row['is_active'],
+                row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+            cursor.commit()
+            return render(request, "pages/pages/add_records/records_added_pages/bp_added.html")
+    return render(request, "pages/pages/add_records/add_business_partner.html")
+
+#EMPLOYEES
+def e_(request):
+    e_one = fetch_e_data()
+    e_ = e_one.e_data()
+    context = {'html_table': e_}
+    return render(request, "pages/pages/employees.html", context)
+
+# def add_e(request):
+#     now_ = datetime.now().replace(microsecond=0)
+#     if 'fnInput' in request.GET:
+#         fn_input = request.GET['fnInput'].upper()
+#     if 'lnInput' in request.GET:
+#         ln_input = request.GET['lnInput'].upper()
+#     if 'cInput' in request.GET:
+#         c_input = request.GET['cInput']
+#     if 'eInput' in request.GET:
+#         e_input = request.GET['eInput'].upper()
+#     if 'empInput' in request.GET:
+#         emp_input = request.GET['empInput']
+#     if 'activeInput' in request.GET:
+#         active_input = request.GET['activeInput']
+#     if 'nameInput' in request.GET:
+#         name_input = request.GET['nameInput']
+#         cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+#         rs1 = dictfetchall(cursor)
+#         id_row = pd.DataFrame(rs1)
+#         for i in id_row.values:
+#             i1 = (str(i[0]))
+#         # print(i1)
+#
+#         dfs = pd.DataFrame(
+#             columns=['F_Name', 'L_Name', 'Cell', 'Email', 'EMP_Code', 'is_active', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+#         dfs.loc[0] = fn_input, ln_input, c_input, e_input, emp_input, active_input, now_, now_, i1, i1,
+#         # print(dfs.to_string())
+#         for index, row in dfs.iterrows():
+#             cursor.execute(
+#                 "INSERT INTO Employees (first_name, last_name, cell_phone, email_address, employee_code, is_active, created_at, updated_at, created_by_id, updated_by_id) "
+#                 "VALUES (?,?,?,?,?,?,?,?,?,?)",
+#                 row['F_Name'], row['L_Name'], row['Cell'], row['Email'], row['EMP_Code'], row['is_active'],
+#                 row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+#             cursor.commit()
+#             return render(request, "pages/pages/add_records/records_added_pages/bp_added.html")
+#     return render(request, "pages/pages/add_records/add_business_partner.html")
+
 def test(request):
     if request.method == 'POST':
         form2 = RC_Search(request.POST)
         form = Store_Search(request.POST)  # Or MyModelForm(request.POST)
-        if form2.is_valid() and form.is_valid():
-            selected_option = form2.cleaned_data['my_dropdown']
-            selected_option2 = form.cleaned_data['my_dropdown']# Access the selected value
-            # Process the data
-            return redirect('success_page')
+        if form.is_valid() and form2.is_valid():
+            selected_option2 = form2.cleaned_data['my_dropdown']
+            selected_option = form.cleaned_data['my_dropdown']
+            print(selected_option)
+
+
     else:
         form = Store_Search()
-        form2 = RC_Search()     # Or MyModelForm()
+        form2 = RC_Search()
+
+    if 'id_subject' in request.GET:
+        sd_input = request.GET['id_1']
+        print(sd_input)
+
     return render(request, 'pages/pages/testing/test.html', {'form': form, 'form2': form2})
 
 # Pages -> Profile
@@ -244,14 +388,14 @@ def profile_overview(request):
 def teams(request):
     context = {"parent": "pages", "sub_parent": "profile", "segment": "teams"}
     return render(request, "pages/profile/teams.html", context)
-
-
+#
+#
 def projects(request):
     context = {"parent": "pages", "sub_parent": "profile", "segment": "projects"}
     return render(request, "pages/profile/projects.html", context)
-
-
-# Pages -> Users
+#
+#
+# # Pages -> Users
 def reports(request):
     context = {"parent": "pages", "sub_parent": "users", "segment": "reports"}
     return render(request, "pages/users/reports.html", context)
@@ -279,142 +423,13 @@ def invoice(request):
 def security(request):
     context = {"parent": "accounts", "segment": "security"}
     return render(request, "pages/account/security.html", context)
-
-
-# Pages -> Projects
+#
+#
+# # Pages -> Projects
 def general(request):
     context = {"parent": "projects", "segment": "general"}
     return render(request, "pages/projects/general.html", context)
 
-
-def timeline(request):
-    context = {"parent": "projects", "segment": "timeline"}
-    return render(request, "pages/projects/timeline.html", context)
-
-
-def new_project(request):
-    context = {"parent": "projects", "segment": "new_project"}
-    return render(request, "pages/projects/new-project.html", context)
-
-
-# Applications
-# def kanban(request):
-#     context = {"parent": "applications", "segment": "kanban"}
-#     return render(request, "pages/applications/kanban.html", context)
-
-
-# def wizard(request):
-#     context = {"parent": "applications", "segment": "wizard"}
-#     return render(request, "pages/applications/wizard.html", context)
-
-
-def datatables(request):
-    context = {"parent": "applications", "segment": "datatables"}
-    return render(request, "pages/applications/datatables.html", context)
-
-
-def calendar(request):
-    context = {"parent": "applications", "segment": "calendar"}
-    return render(request, "pages/applications/calendar.html", context)
-
-
-def analytics(request):
-    context = {"parent": "applications", "segment": "analytics"}
-    return render(request, "pages/applications/analytics.html", context)
-
-
-# Ecommerce
-def overview(request):
-    context = {"parent": "ecommerce", "segment": "overview"}
-    return render(request, "pages/ecommerce/overview.html", context)
-
-
-def referral(request):
-    context = {"parent": "ecommerce", "segment": "referral"}
-    return render(request, "pages/ecommerce/referral.html", context)
-
-
-# Ecommerce -> Products
-def new_product(request):
-    context = {
-        "parent": "ecommerce",
-        "sub_parent": "products",
-        "segment": "new_product",
-    }
-    return render(request, "pages/ecommerce/products/new-product.html", context)
-
-
-def edit_product(request):
-    context = {
-        "parent": "ecommerce",
-        "sub_parent": "products",
-        "segment": "edit_product",
-    }
-    return render(request, "pages/ecommerce/products/edit-product.html", context)
-
-
-def product_page(request):
-    context = {
-        "parent": "ecommerce",
-        "sub_parent": "products",
-        "segment": "product_page",
-    }
-    return render(request, "pages/ecommerce/products/product-page.html", context)
-
-
-def products_list(request):
-    context = {
-        "parent": "ecommerce",
-        "sub_parent": "products",
-        "segment": "products_list",
-    }
-    return render(request, "pages/ecommerce/products/products-list.html", context)
-
-
-# Ecommerce -> Orders
-def order_list(request):
-    context = {"parent": "ecommerce", "sub_parent": "orders", "segment": "order_list"}
-    return render(request, "pages/ecommerce/orders/list.html", context)
-
-
-def order_details(request):
-    context = {
-        "parent": "ecommerce",
-        "sub_parent": "orders",
-        "segment": "order_details",
-    }
-    return render(request, "pages/ecommerce/orders/details.html", context)
-
-
-# Team
-def team_messages(request):
-    context = {"parent": "team", "segment": "team_messages"}
-    return render(request, "pages/team/messages.html", context)
-
-
-def team_new_user(request):
-    context = {"parent": "team", "segment": "team_new_user"}
-    return render(request, "pages/team/new-user.html", context)
-
-
-def team_overview(request):
-    context = {"parent": "team", "segment": "team_overview"}
-    return render(request, "pages/team/overview.html", context)
-
-
-def team_projects(request):
-    context = {"parent": "team", "segment": "team_projects"}
-    return render(request, "pages/team/projects.html", context)
-
-
-def team_reports(request):
-    context = {"parent": "team", "segment": "team_reports"}
-    return render(request, "pages/team/reports.html", context)
-
-
-def team_teams(request):
-    context = {"parent": "team", "segment": "team_teams"}
-    return render(request, "pages/team/teams.html", context)
 
 
 # Authentication -> Register
