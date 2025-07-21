@@ -21,7 +21,7 @@ from django.contrib.auth.decorators import login_required
 from apps.pages.models import Region_r
 
 
-from .forms import MyForm, MyModelForm
+from .forms import Store_Search, MyModelForm, RC_Search
 from apps.db.connections.connection_string import conn_str
 from apps.db.dict_fetch.fetch_data import dictfetchall
 import pyodbc
@@ -219,14 +219,17 @@ def add_rc(request):
     return render(request, "pages/pages/add_records/add_regional_coach.html")
 def test(request):
     if request.method == 'POST':
-        form = MyForm(request.POST)  # Or MyModelForm(request.POST)
-        if form.is_valid():
-            selected_option = form.cleaned_data['my_dropdown']  # Access the selected value
+        form2 = RC_Search(request.POST)
+        form = Store_Search(request.POST)  # Or MyModelForm(request.POST)
+        if form2.is_valid() and form.is_valid():
+            selected_option = form2.cleaned_data['my_dropdown']
+            selected_option2 = form.cleaned_data['my_dropdown']# Access the selected value
             # Process the data
             return redirect('success_page')
     else:
-        form = MyForm()  # Or MyModelForm()
-    return render(request, 'pages/pages/testing/test.html', {'form': form})
+        form = Store_Search()
+        form2 = RC_Search()     # Or MyModelForm()
+    return render(request, 'pages/pages/testing/test.html', {'form': form, 'form2': form2})
 
 # Pages -> Profile
 def profile_overview(request):

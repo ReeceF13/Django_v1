@@ -133,7 +133,7 @@ class MyModelForm(forms.ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(), label="Select a Category")
 
 
-class MyForm(forms.Form):
+class Store_Search(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -156,5 +156,30 @@ class MyForm(forms.Form):
 
     my_dropdown = forms.ChoiceField(
         choices=[],
-        label="Select an Option"
+        label="Select Store"
+    )
+class RC_Search(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        try:
+            with conn.cursor() as cursor:
+                # Single query to get both id and name
+                cursor.execute("SELECT id, first_name FROM RegionalCoaches")
+                rc_s = dictfetchall(cursor)
+
+                # Create choices list properly
+                self.fields['my_dropdown'].choices = [
+                    (rc_['id'], rc_['first_name'])
+                    for rc_ in rc_s
+                ]
+
+        except Exception as e:
+            logger.error(f"Database error in MyForm: {e}")
+            # Provide empty choices as fallback
+            self.fields['my_dropdown'] = []
+
+    my_dropdown = forms.ChoiceField(
+        choices=[],
+        label="Select Regional Coach"
     )

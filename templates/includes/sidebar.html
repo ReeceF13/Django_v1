@@ -347,12 +347,7 @@
                   <span class="sidenav-normal">Add Coach Assignments</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url "test" %}">
-                  <span class="sidenav-mini-icon"> W </span>
-                  <span class="sidenav-normal">test</span>
-                </a>
-              </li>
+
 <!--              <li class="nav-item {% if segment == 'datatables' %}active{% endif %}">-->
 <!--                <a class="nav-link {% if segment == 'datatables' %}active{% endif %}" href="{% url "datatables" %}">-->
 <!--                  <span class="sidenav-mini-icon"> D </span>-->
@@ -561,169 +556,157 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">TBA</span>
+            <span class="nav-link-text ms-1">TESTING!</span>
           </a>
           <div class="collapse " id="authExamples">
             <ul class="nav ms-4 ps-3">
               <li class="nav-item ">
                 <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#signinExample">
                   <span class="sidenav-mini-icon"> S </span>
-                  <span class="sidenav-normal"> Sign In <b class="caret"></b></span>
+                  <span class="sidenav-normal"> tests <b class="caret"></b></span>
                 </a>
                 <div class="collapse " id="signinExample">
                   <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
-                      <a class="nav-link " href="{% url "basic_login" %}">
-                        <span class="sidenav-mini-icon text-xs"> B </span>
-                        <span class="sidenav-normal"> Basic </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "cover_login" %}">
-                        <span class="sidenav-mini-icon text-xs"> C </span>
-                        <span class="sidenav-normal"> Cover </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "illustration_login" %}">
-                        <span class="sidenav-mini-icon text-xs"> I </span>
-                        <span class="sidenav-normal"> Illustration </span>
+                      <a class="nav-link" href="{% url "test" %}">
+                        <span class="sidenav-mini-icon"> W </span>
+                        <span class="sidenav-normal">test RC ASSIGNMENTS</span>
                       </a>
                     </li>
                   </ul>
                 </div>
               </li>
-              <li class="nav-item ">
-                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#signupExample">
-                  <span class="sidenav-mini-icon"> S </span>
-                  <span class="sidenav-normal"> Sign Up <b class="caret"></b></span>
-                </a>
-                <div class="collapse " id="signupExample">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "basic_register" %}">
-                        <span class="sidenav-mini-icon text-xs"> B </span>
-                        <span class="sidenav-normal"> Basic </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "cover_register" %}">
-                        <span class="sidenav-mini-icon text-xs"> C </span>
-                        <span class="sidenav-normal"> Cover </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "illustration_register" %}">
-                        <span class="sidenav-mini-icon text-xs"> I </span>
-                        <span class="sidenav-normal"> Illustration </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#resetExample">
-                  <span class="sidenav-mini-icon"> R </span>
-                  <span class="sidenav-normal"> Reset Password <b class="caret"></b></span>
-                </a>
-                <div class="collapse " id="resetExample">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "basic_reset" %}">
-                        <span class="sidenav-mini-icon text-xs"> B </span>
-                        <span class="sidenav-normal"> Basic </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "cover_reset" %}">
-                        <span class="sidenav-mini-icon text-xs"> C </span>
-                        <span class="sidenav-normal"> Cover </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "illustration_reset" %}">
-                        <span class="sidenav-mini-icon text-xs"> I </span>
-                        <span class="sidenav-normal"> Illustration </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#lockExample">
-                  <span class="sidenav-mini-icon"> L </span>
-                  <span class="sidenav-normal"> Lock <b class="caret"></b></span>
-                </a>
-                <div class="collapse " id="lockExample">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "basic_lock" %}">
-                        <span class="sidenav-mini-icon text-xs"> B </span>
-                        <span class="sidenav-normal"> Basic </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "cover_lock" %}">
-                        <span class="sidenav-mini-icon text-xs"> C </span>
-                        <span class="sidenav-normal"> Cover </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "illustration_lock" %}">
-                        <span class="sidenav-mini-icon text-xs"> I </span>
-                        <span class="sidenav-normal"> Illustration </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#StepExample">
-                  <span class="sidenav-mini-icon"> 2 </span>
-                  <span class="sidenav-normal"> 2-Step Verification <b class="caret"></b></span>
-                </a>
-                <div class="collapse " id="StepExample">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "basic_verification" %}">
-                        <span class="sidenav-mini-icon text-xs"> B </span>
-                        <span class="sidenav-normal"> Basic </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "cover_verification" %}">
-                        <span class="sidenav-mini-icon text-xs"> C </span>
-                        <span class="sidenav-normal"> Cover </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "illustration_verification" %}">
-                        <span class="sidenav-mini-icon text-xs"> I </span>
-                        <span class="sidenav-normal"> Illustration </span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#errorExample">
-                  <span class="sidenav-mini-icon"> E </span>
-                  <span class="sidenav-normal"> Error <b class="caret"></b></span>
-                </a>
-                <div class="collapse " id="errorExample">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "error_404" %}">
-                        <span class="sidenav-mini-icon text-xs"> E </span>
-                        <span class="sidenav-normal"> Error 404 </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link " href="{% url "error_500" %}">
-                        <span class="sidenav-mini-icon text-xs"> E </span>
-                        <span class="sidenav-normal"> Error 500 </span>
-                      </a>
-                    </li>
+<!--              <li class="nav-item ">-->
+<!--                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#signupExample">-->
+<!--                  <span class="sidenav-mini-icon"> S </span>-->
+<!--                  <span class="sidenav-normal"> Sign Up <b class="caret"></b></span>-->
+<!--                </a>-->
+<!--                <div class="collapse " id="signupExample">-->
+<!--                  <ul class="nav nav-sm flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "basic_register" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> B </span>-->
+<!--                        <span class="sidenav-normal"> Basic </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "cover_register" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> C </span>-->
+<!--                        <span class="sidenav-normal"> Cover </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "illustration_register" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> I </span>-->
+<!--                        <span class="sidenav-normal"> Illustration </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item ">-->
+<!--                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#resetExample">-->
+<!--                  <span class="sidenav-mini-icon"> R </span>-->
+<!--                  <span class="sidenav-normal"> Reset Password <b class="caret"></b></span>-->
+<!--                </a>-->
+<!--                <div class="collapse " id="resetExample">-->
+<!--                  <ul class="nav nav-sm flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "basic_reset" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> B </span>-->
+<!--                        <span class="sidenav-normal"> Basic </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "cover_reset" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> C </span>-->
+<!--                        <span class="sidenav-normal"> Cover </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "illustration_reset" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> I </span>-->
+<!--                        <span class="sidenav-normal"> Illustration </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item ">-->
+<!--                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#lockExample">-->
+<!--                  <span class="sidenav-mini-icon"> L </span>-->
+<!--                  <span class="sidenav-normal"> Lock <b class="caret"></b></span>-->
+<!--                </a>-->
+<!--                <div class="collapse " id="lockExample">-->
+<!--                  <ul class="nav nav-sm flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "basic_lock" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> B </span>-->
+<!--                        <span class="sidenav-normal"> Basic </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "cover_lock" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> C </span>-->
+<!--                        <span class="sidenav-normal"> Cover </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "illustration_lock" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> I </span>-->
+<!--                        <span class="sidenav-normal"> Illustration </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item ">-->
+<!--                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#StepExample">-->
+<!--                  <span class="sidenav-mini-icon"> 2 </span>-->
+<!--                  <span class="sidenav-normal"> 2-Step Verification <b class="caret"></b></span>-->
+<!--                </a>-->
+<!--                <div class="collapse " id="StepExample">-->
+<!--                  <ul class="nav nav-sm flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "basic_verification" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> B </span>-->
+<!--                        <span class="sidenav-normal"> Basic </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "cover_verification" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> C </span>-->
+<!--                        <span class="sidenav-normal"> Cover </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "illustration_verification" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> I </span>-->
+<!--                        <span class="sidenav-normal"> Illustration </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </li>-->
+<!--              <li class="nav-item ">-->
+<!--                <a class="nav-link " data-bs-toggle="collapse" aria-expanded="false" href="#errorExample">-->
+<!--                  <span class="sidenav-mini-icon"> E </span>-->
+<!--                  <span class="sidenav-normal"> Error <b class="caret"></b></span>-->
+<!--                </a>-->
+<!--                <div class="collapse " id="errorExample">-->
+<!--                  <ul class="nav nav-sm flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "error_404" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> E </span>-->
+<!--                        <span class="sidenav-normal"> Error 404 </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link " href="{% url "error_500" %}">-->
+<!--                        <span class="sidenav-mini-icon text-xs"> E </span>-->
+<!--                        <span class="sidenav-normal"> Error 500 </span>-->
+<!--                      </a>-->
+<!--                    </li>-->
                   </ul>
                 </div>
               </li>
