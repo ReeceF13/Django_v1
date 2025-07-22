@@ -24,8 +24,11 @@ from apps.db.tests.tests_ import fetch_test_data
 from apps.db.regions.region_query import fetch_region_data, fetch_region_data_updated
 from apps.db.stores.store_query import fetch_store_data, fetch_store_data_updated
 from apps.db.regional_coaches.rc_query import fetch_regional_coach_data, fetch_regional_coach_data_updated
+from apps.db.regional_coaches.rc_assignmets.rc_a_query import fetch_rca_data, fetch_rca_updated
 from apps.db.area_coaches.ac_query import fetch_area_coach_data, fetch_area_coach_data_updated
+from apps.db.area_coaches.ac_assignments.ac_a_assignments import fetch_aca_data, fetch_aca_updated
 from apps.db.business_partners.bp_query import fetch_bp_data, fetch_bp_data_updated
+from apps.db.business_partners.bp_assignments.bp_a_query import fetch_bpa_data, fetch_bpa_updated
 from apps.db.employees.employee_query import fetch_e_data
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -358,6 +361,59 @@ def add_rc(request):
             return render(request, "pages/pages/add_records/records_added_pages/rc_added.html")
     return render(request, "pages/pages/add_records/add_regional_coach.html")
 
+def view_rc_a(request):
+    rca_one = fetch_rca_data()
+    rca_ = rca_one.rca_data()
+    context = {'html_table': rca_}
+    return render(request, "pages/pages/add_records/assignments/rc_assignments.html", context)
+
+def add_rc_a(request):
+    now_ = datetime.now().replace(microsecond=0)
+    if 'fnInput' in request.GET:
+        fn_input = request.GET['fnInput'].upper()
+        cursor.execute("SELECT id FROM RegionalCoaches WHERE first_name LIKE '%' + ? + '%'", fn_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            region_id = (str(ii[0]))
+
+    if 'lnInput' in request.GET:
+        ln_input = request.GET['lnInput'].upper()
+        cursor.execute("SELECT id FROM Stores WHERE store_name LIKE '%' + ? + '%'", ln_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            store_id = (str(ii[0]))
+            print(store_id)
+    if 'cInput' in request.GET:
+        c_input = request.GET['cInput']
+    if 'eInput' in request.GET:
+        e_input = request.GET['eInput'].upper()
+    if 'nameInput' in request.GET:
+        name_input = request.GET['nameInput']
+        cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for i in id_row.values:
+            user_name = (str(i[0]))
+        # print(i1)
+
+        dfs = pd.DataFrame(
+            columns=['rc_id', 'store_id', 's_date', 'e_date', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+        dfs.loc[0] = region_id, store_id, c_input, e_input, now_, now_, user_name, user_name
+        print(dfs.to_string())
+        for index, row in dfs.iterrows():
+            cursor.execute(
+                "INSERT INTO RegionalCoachAssignments (regional_coach_id, store_id, start_date, end_date, created_at, updated_at, created_by_id, updated_by_id) "
+                "VALUES (?,?,?,?,?,?,?,?)",
+                row['rc_id'], row['store_id'], row['s_date'], row['e_date'],
+                row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+            cursor.commit()
+            rcau_one = fetch_rca_updated()
+            rcua_ = rcau_one.rca_data_updated()
+            context1 = {'html_table': rcua_}
+            return render(request, "pages/pages/add_records/assignments/rc_assignments.html", context1)
+    return render(request, "pages/pages/add_records/assignments/add_rc_assignments.html")
 #AREA COACHES
 def a_c(request):
     ac_one = fetch_area_coach_data()
@@ -452,6 +508,62 @@ def add_ac(request):
             cursor.commit()
             return render(request, "pages/pages/add_records/records_added_pages/ac_added.html")
     return render(request, "pages/pages/add_records/add_area_coach.html")
+
+def view_ac_a(request):
+    aca_one = fetch_aca_data()
+    aca_ = aca_one.aca_data()
+    context = {'html_table': aca_}
+    return render(request, "pages/pages/add_records/assignments/ac_assignments.html", context)
+
+def add_ac_a(request):
+    now_ = datetime.now().replace(microsecond=0)
+    if 'fnInput' in request.GET:
+        fn_input = request.GET['fnInput'].upper()
+        cursor.execute("SELECT id FROM AreaCoaches WHERE first_name LIKE '%' + ? + '%'", fn_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            region_id = (str(ii[0]))
+
+    if 'lnInput' in request.GET:
+        ln_input = request.GET['lnInput'].upper()
+        cursor.execute("SELECT id FROM RegionalCoaches WHERE first_name LIKE '%' + ? + '%'", ln_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            store_id = (str(ii[0]))
+            print(store_id)
+    if 'cInput' in request.GET:
+        c_input = request.GET['cInput']
+    if 'eInput' in request.GET:
+        e_input = request.GET['eInput'].upper()
+    if 'nameInput' in request.GET:
+        name_input = request.GET['nameInput']
+        cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for i in id_row.values:
+            user_name = (str(i[0]))
+        # print(i1)
+
+        dfs = pd.DataFrame(
+            columns=['rc_id', 'store_id', 's_date', 'e_date', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+        dfs.loc[0] = region_id, store_id, c_input, e_input, now_, now_, user_name, user_name
+        print(dfs.to_string())
+        for index, row in dfs.iterrows():
+            cursor.execute(
+                "INSERT INTO AreaCoachAssignments (area_coach_id, regional_coach_id, start_date, end_date, created_at, updated_at, created_by_id, updated_by_id) "
+                "VALUES (?,?,?,?,?,?,?,?)",
+                row['rc_id'], row['store_id'], row['s_date'], row['e_date'],
+                row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+            cursor.commit()
+            acau_one = fetch_aca_updated()
+            acua_ = acau_one.aca_data_updated()
+            context1 = {'html_table': acua_}
+            return render(request, "pages/pages/add_records/assignments/ac_assignments.html", context1)
+    return render(request, "pages/pages/add_records/assignments/add_ac_assignments.html")
+
+
 #BUSINESS PARTNERS
 def b_p(request):
     bp_one = fetch_bp_data()
@@ -546,7 +658,59 @@ def add_bp(request):
             cursor.commit()
             return render(request, "pages/pages/add_records/records_added_pages/bp_added.html")
     return render(request, "pages/pages/add_records/add_business_partner.html")
+def view_bp_a(request):
+    bpa_one = fetch_bpa_data()
+    bpa_ = bpa_one.bpa_data()
+    context = {'html_table': bpa_}
+    return render(request, "pages/pages/add_records/assignments/bp_asignments.html", context)
 
+def add_bp_a(request):
+    now_ = datetime.now().replace(microsecond=0)
+    if 'fnInput' in request.GET:
+        fn_input = request.GET['fnInput'].upper()
+        cursor.execute("SELECT id FROM BusinessPartners WHERE first_name LIKE '%' + ? + '%'", fn_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            region_id = (str(ii[0]))
+
+    if 'lnInput' in request.GET:
+        ln_input = request.GET['lnInput'].upper()
+        cursor.execute("SELECT id FROM AreaCoaches WHERE first_name LIKE '%' + ? + '%'", ln_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for ii in id_row.values:
+            store_id = (str(ii[0]))
+            print(store_id)
+    if 'cInput' in request.GET:
+        c_input = request.GET['cInput']
+    if 'eInput' in request.GET:
+        e_input = request.GET['eInput'].upper()
+    if 'nameInput' in request.GET:
+        name_input = request.GET['nameInput']
+        cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", name_input)
+        rs1 = dictfetchall(cursor)
+        id_row = pd.DataFrame(rs1)
+        for i in id_row.values:
+            user_name = (str(i[0]))
+        # print(i1)
+
+        dfs = pd.DataFrame(
+            columns=['rc_id', 'store_id', 's_date', 'e_date', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
+        dfs.loc[0] = region_id, store_id, c_input, e_input, now_, now_, user_name, user_name
+        print(dfs.to_string())
+        for index, row in dfs.iterrows():
+            cursor.execute(
+                "INSERT INTO BusinessPartnerAssignments (business_partner_id, area_coach_id, start_date, end_date, created_at, updated_at, created_by_id, updated_by_id) "
+                "VALUES (?,?,?,?,?,?,?,?)",
+                row['rc_id'], row['store_id'], row['s_date'], row['e_date'],
+                row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
+            cursor.commit()
+            bpua_one = fetch_bpa_updated()
+            bpuaa_ = bpua_one.bpa_data_updated()
+            context11 = {'html_table': bpuaa_}
+            return render(request, "pages/pages/add_records/assignments/bp_asignments.html", context11)
+    return render(request, "pages/pages/add_records/assignments/add_bp_assignments.html")
 #EMPLOYEES
 def e_(request):
     e_one = fetch_e_data()
