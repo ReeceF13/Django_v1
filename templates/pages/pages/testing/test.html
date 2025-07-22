@@ -1,143 +1,38 @@
-
-
-{% extends 'layouts/base.html' %}
-
-{% block title %} add data {% endblock title %}
-
-<!-- Specific CSS goes HERE -->
-{% block stylesheets %}{% endblock stylesheets %}
-
+{% extends "layouts/base.html" %}
+{% load static %}
 {% block content %}
 
-    <!-- Header -->
+        <form action="" method="GET" style="color: aliceblue">
+            <p align="right">
+                <input name="word" type="text" placeholder="Enter Region">
+                <input type='submit' name='button' value="Submit">
+            <br>
+            <br>
+            </p>
+          </form>
 
-      <div class="container-fluid">
-
-        <div class="header-body">
-
-          <!-- Card stats -->
-          <div class="row">
-
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
-                      <span class="h2 font-weight-bold mb-0"></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                        <i class="fas fa-chart-bar"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
-                      <span class="h2 font-weight-bold mb-0"></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
-                      <span class="h2 font-weight-bold mb-0"></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
-                      <span class="h2 font-weight-bold mb-0"></span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <table>
+        <h2 style="color: aliceblue" align="center">Regions</h2>
+        {{ html_table|safe }}
+        </table>
         </div>
       </div>
     </div>
-
-    <div class="container-fluid mt--7">
-
-      <div class="row">
-        <div class="col">
-          <div >
-            <div class="card-header bg-transparent">
-              <h3 class="mb-0">Add RC Assignment</h3>
-            <div align="center">
-              <form action="" method="GET">
-                <div class="fieldWrapper">
-                  <label for="id_subject">Select Store:</label>
-                  {{ form.as_p }}
-
-                </div>
-                  {{ form2.as_p }}
-
-                <label for="sdInput">Start Date:</label>
-                <input type="text" name="sdInput" placeholder="Enter Date">
-                <label for="edInput">End Date:</label>
-                <input type="text" name="edInput" placeholder="Enter Date">
-                <br>
-                <br>
-                <label for="nameInput">Username:</label>
-                <input type="text" name="nameInput" placeholder="Your Username">
-                <br>
-                <br>
-                <input onclick="location.href='{% url 'test' %}'" type='submit' name='button' value="Submit">
-
-              </form>
-            </div>
+  </div>
 <style>
             h1,
 
         label {
-            display: inline-block;
+            display: block;
             margin-top: 10px;
-              color: #050505;
-          font-size: 18px;
         }
 
         input,
         textarea {
-            width: 250px;
+            width: 200px;
             padding: 8px;
             margin-top: 5px;
-            border: 1px solid #070707;
+            border: 1px solid #ccc;
             border-radius: 4px;
         }
 
@@ -149,8 +44,6 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 300px;
-          height: 50px;
         }
 
         button:hover {
@@ -158,10 +51,203 @@
         }
 
         table {
-            background-color: #ece6e6;
+            background-color: aliceblue;
             border-collapse: collapse;
             margin-bottom: 20px;
-            width: 100%;
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 98%;
+        }
+
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+</style>
+
+{% endblock %}
+<!--      <div class="container-fluid">-->
+
+<!--        <div class="header-body">-->
+
+<!--          &lt;!&ndash; Card stats &ndash;&gt;-->
+<!--          <div class="row">-->
+
+<!--            <div class="col-xl-3 col-lg-6">-->
+<!--              <div class="card card-stats mb-4 mb-xl-0">-->
+<!--                <div style="background-color: #efc090" class="card-body">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col">-->
+<!--                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>-->
+<!--                      <span class="h2 font-weight-bold mb-0"></span>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">-->
+<!--                        <i class="fas fa-chart-bar"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-xl-3 col-lg-6">-->
+<!--              <div class="card card-stats mb-4 mb-xl-0">-->
+<!--                <div style="background-color: #efc090" class="card-body">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col">-->
+<!--                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>-->
+<!--                      <span class="h2 font-weight-bold mb-0"></span>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">-->
+<!--                        <i class="fas fa-chart-pie"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-xl-3 col-lg-6">-->
+<!--              <div class="card card-stats mb-4 mb-xl-0">-->
+<!--                <div style="background-color: #efc090" class="card-body">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col">-->
+<!--                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>-->
+<!--                      <span class="h2 font-weight-bold mb-0"></span>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">-->
+<!--                        <i class="fas fa-users"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-xl-3 col-lg-6">-->
+<!--              <div class="card card-stats mb-4 mb-xl-0">-->
+<!--                <div style="background-color: #efc090" class="card-body">-->
+<!--                  <div class="row">-->
+<!--                    <div class="col">-->
+<!--                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>-->
+<!--                      <span class="h2 font-weight-bold mb-0"></span>-->
+<!--                    </div>-->
+<!--                    <div class="col-auto">-->
+<!--                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">-->
+<!--                        <i class="fas fa-percent"></i>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="container-fluid mt&#45;&#45;7">-->
+
+<!--      <div class="row">-->
+<!--        <div class="col">-->
+<!--          <div >-->
+<!--            <div class="card-header bg-transparent">-->
+<!--              <h3 class="mb-0">Add RC Assignment</h3>-->
+<!--            <div align="center">-->
+<!--              <form action="" method="GET">-->
+
+<!--                <div class="fieldWrapper">-->
+<!--                  <link rel="stylesheet" href="{% static 'custom_styles.css' %}" media="all">-->
+<!--                  <link rel="preload" href="{% static 'custom_styles.css' %}" as="style">-->
+<!--                  <label for="id_subject">Select Store:</label>-->
+<!--                  {{ form.as_p }}-->
+
+<!--                </div>-->
+<!--                  {{ form2.as_p }}-->
+
+<!--                <label for="sdInput">Start Date:</label>-->
+<!--                <input type="text" name="sdInput" placeholder="Enter Date">-->
+<!--                <label for="edInput">End Date:</label>-->
+<!--                <input type="text" name="edInput" placeholder="Enter Date">-->
+<!--                <br>-->
+<!--                <br>-->
+<!--                <label for="nameInput">Username:</label>-->
+<!--                <input type="text" name="nameInput" placeholder="Your Username">-->
+<!--                <br>-->
+<!--                <br>-->
+<!--                <input onclick="location.href='{% url 'test' %}'" type='submit' name='button' value="Submit">-->
+
+<!--              </form>-->
+<!--            </div>-->
+
+
+<!--            <div class="card-body">-->
+<!--              <div class="row icon-examples">-->
+
+<!--          </div>-->
+<!--          &lt;!&ndash; Card footer &ndash;&gt;-->
+<!--          <div class="card-footer py-4">-->
+<!--            <nav aria-label="...">-->
+<!--              <ul class="pagination justify-content-end mb-0">-->
+
+<!--              </ul>-->
+<!--            </nav>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+<style>
+            h1,
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea {
+            width: 200px;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 8px 16px;
+            background-color: #f1922f;
+            color: #050505;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            background-color: aliceblue;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 98%;
         }
 
         th,
@@ -177,27 +263,6 @@
         }
 </style>
 
-            <div class="card-body">
-              <div class="row icon-examples">
-
-          </div>
-          <!-- Card footer -->
-          <div class="card-footer py-4">
-            <nav aria-label="...">
-              <ul class="pagination justify-content-end mb-0">
-
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </div>
-
-      {% include "includes/footer.html" %}
-
-    </div>
-
-{% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}

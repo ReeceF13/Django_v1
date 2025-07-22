@@ -2,9 +2,16 @@
 {% load static %}
 {% block content %}
 
-
+            <form action="" method="GET" style="color: aliceblue">
+            <p align="right">
+                <input name="word" type="text" placeholder="Enter Store Name">
+                <input type='submit' name='button' value="Submit">
+            <br>
+            <br>
+            </p>
+            </form>
           <table>
-        <h2>Stores</h2>
+        <h2 style="color: aliceblue" align="center">Stores</h2>
         {{ html_table|safe }}
         </table>
         </div>
@@ -46,6 +53,8 @@
             background-color: #ece6e6;
             border-collapse: collapse;
             margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
             width: 98%;
         }
 

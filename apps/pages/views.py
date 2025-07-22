@@ -5,6 +5,8 @@ from django.contrib.auth.views import (
     PasswordChangeView,
     PasswordResetConfirmView,
 )
+from django.utils.lorem_ipsum import words
+
 from apps.pages.forms import (
     RegistrationForm,
     LoginForm,
@@ -14,13 +16,16 @@ from apps.pages.forms import (
 )
 from django.contrib.auth import logout
 
-
+##FORMS
+from apps.pages.forms import RegionUpdate, StoreUpdate, RCUpdate, ACUpdate, BPUpdate
+##TESTING
+from apps.db.tests.tests_ import fetch_test_data
 #CLASS IMPORTS
-from apps.db.regions.region_query import fetch_region_data
-from apps.db.stores.store_query import fetch_store_data
-from apps.db.regional_coaches.rc_query import fetch_regional_coach_data
-from apps.db.area_coaches.ac_query import fetch_area_coach_data
-from apps.db.business_partners.bp_query import fetch_bp_data
+from apps.db.regions.region_query import fetch_region_data, fetch_region_data_updated
+from apps.db.stores.store_query import fetch_store_data, fetch_store_data_updated
+from apps.db.regional_coaches.rc_query import fetch_regional_coach_data, fetch_regional_coach_data_updated
+from apps.db.area_coaches.ac_query import fetch_area_coach_data, fetch_area_coach_data_updated
+from apps.db.business_partners.bp_query import fetch_bp_data, fetch_bp_data_updated
 from apps.db.employees.employee_query import fetch_e_data
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
@@ -33,6 +38,8 @@ from apps.db.dict_fetch.fetch_data import dictfetchall
 import pyodbc
 import pandas as pd
 from datetime import datetime
+
+from ..models.base import BaseModel
 
 conn = pyodbc.connect(conn_str)
 cursor = conn.cursor()
@@ -98,10 +105,47 @@ def regions_(request):
     region_one = fetch_region_data()
     region_ = region_one.region_data()
     context = {'html_table': region_}
+    now_ = datetime.now().replace(microsecond=0)
+    if 'word' in request.GET:
+        word_input = request.GET['word']
+        params = word_input
+        cursor.execute("SELECT * FROM Regions WHERE region_name LIKE '%' + ? + '%'", params)
+        rs1 = dictfetchall(cursor)
+        df = pd.DataFrame(rs1)
+        dfsd = df.to_records(index=False)
+        for i in dfsd:
+            i0 = (str(i[0]))
+            i1 = (str(i[1]))
+            i2 = (str(i[2]))
+            i3 = (str(i[3]))
+            i4 = (str(i[4]))
+            i5 = (str(i[5]))
+            # print(i0)
+        initial_data = {'ID': i0, 'Region_Name': i1, 'Created_At': i2, 'Updated_At': i3, 'Created_By': i4, 'Updated_By': i5}
+        form = RegionUpdate(initial=initial_data)
+        if 'filter' in request.POST:
+            id_ = request.POST.get('ID')
+            rn_ = request.POST.get('Region_Name')
+            updated_at = now_
+            updated_by = request.POST.get('Updated_By')
+            dfsp = pd.DataFrame(
+                columns=['id', 'region_name', 'updated_at', 'updated_by_id'])
+            dfsp.loc[0] = id_, rn_, updated_at, updated_by
+            for index, row in dfsp.iterrows():
+                cursor.execute("UPDATE Regions SET region_name = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+                               (row['region_name'], row['updated_at'], row['updated_by_id'], row['id']))
+
+                cursor.commit()
+                region_one = fetch_region_data_updated()
+                region_ = region_one.region_data_updated()
+                context1 = {'html_table': region_}
+                return render(request, "pages/pages/region_table.html", context1)
+
+        return render(request, "pages/pages/edit_records/edit_regions.html", {'form': form, 'initial_data': initial_data})
+
     return render(request, "pages/pages/region_table.html", context)
 
 def regions_add(request):
-
     if 'regionInput' in request.GET:
         global r_
         region_input = request.GET['regionInput']
@@ -110,7 +154,6 @@ def regions_add(request):
         global c_
         create_input = request.GET['createInput']
         c_ = create_input
-
         cursor.execute("SELECT id FROM auth_user WHERE username LIKE '%' + ? + '%'", create_input)
         rs1 = dictfetchall(cursor)
         id_row = pd.DataFrame(rs1)
@@ -120,14 +163,11 @@ def regions_add(request):
         region_one = fetch_region_data()
         region_ = region_one.region_data_added()
         context = {'html_table': region_}
-
-
         dfs = pd.DataFrame(
             columns=['region_name', 'created_at', 'updated_at', 'created_by_id', 'updated_by_id'])
         now_ = datetime.now().replace(microsecond=0)
         dfs.loc[0] = r_, now_, now_, i1, i1,
         for index, row in dfs.iterrows():
-
             cursor.execute("INSERT INTO Regions (region_name, created_at, updated_at, created_by_id, updated_by_id) "
                             "VALUES (?,?,?,?,?)",
                            row['region_name'], row['created_at'], row['updated_at'], row['created_by_id'], row['updated_by_id'])
@@ -140,6 +180,48 @@ def stores_(request):
     store_one = fetch_store_data()
     store_ = store_one.store_data()
     context = {'html_table': store_}
+    now_ = datetime.now().replace(microsecond=0)
+    if 'word' in request.GET:
+        word_input = request.GET['word']
+        params = word_input
+        cursor.execute("SELECT * FROM Stores WHERE store_name LIKE '%' + ? + '%'", params)
+        rs1 = dictfetchall(cursor)
+        df = pd.DataFrame(rs1)
+        dfsd = df.to_records(index=False)
+        for i in dfsd:
+            i0 = (str(i[0]))
+            i1 = (str(i[1]))
+            i2 = (str(i[2]))
+            i3 = (str(i[3]))
+            i4 = (str(i[4]))
+            i5 = (str(i[5]))
+            i6 = (str(i[6]))
+            i7 = (str(i[7]))
+            i8 = (str(i[8]))
+        initial_data = {'ID': i0, 'Store_ID': i1, 'Store_Name': i2, 'Region': i3, 'Head_Office': i4, 'Created_At': i5, 'Updated_At': i6, 'Created_By': i7,
+                        'Updated_By': i8}
+        form = StoreUpdate(initial=initial_data)
+        if 'filter' in request.POST:
+            id_ = request.POST.get('ID')
+            sd_ = request.POST.get('Store_ID')
+            sn_ = request.POST.get('Store_Name')
+            updated_at = now_
+            updated_by = request.POST.get('Updated_By')
+            dfsp = pd.DataFrame(
+                columns=['id', 'store_id', 'store_name', 'updated_at', 'updated_by_id'])
+            dfsp.loc[0] = id_, sd_, sn_, updated_at, updated_by
+            for index, row in dfsp.iterrows():
+                cursor.execute("UPDATE Stores SET store_id = ?, store_name = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+                               (row['store_id'], row['store_name'], row['updated_at'], row['updated_by_id'], row['id']))
+                cursor.commit()
+                store_one = fetch_store_data_updated()
+                store_ = store_one.store_data_updated()
+                context1 = {'html_table': store_}
+                return render(request, "pages/pages/stores.html", context1)
+
+        return render(request, "pages/pages/edit_records/edit_stores.html",
+                      {'form': form, 'initial_data': initial_data})
+
     return render(request, "pages/pages/stores.html", context)
 
 def store_add(request):
@@ -185,6 +267,58 @@ def r_c(request):
     rc_one = fetch_regional_coach_data()
     rc_ = rc_one.rc_data()
     context = {'html_table': rc_}
+    now_ = datetime.now().replace(microsecond=0)
+    if 'word' in request.GET:
+        word_input = request.GET['word']
+        params = word_input
+        cursor.execute("SELECT * FROM RegionalCoaches WHERE first_name LIKE '%' + ? + '%'", params)
+        rs1 = dictfetchall(cursor)
+        df = pd.DataFrame(rs1)
+        dfsd = df.to_records(index=False)
+        for i in dfsd:
+            i0 = (str(i[0]))
+            i1 = (str(i[1]))
+            i2 = (str(i[2]))
+            i3 = (str(i[3]))
+            i4 = (str(i[4]))
+            i5 = (str(i[5]))
+            i6 = (str(i[6]))
+            i7 = (str(i[7]))
+            i8 = (str(i[8]))
+            i9 = (str(i[9]))
+            i10 = (str(i[10]))
+        initial_data = {'ID': i0, 'First_Name': i1, 'Last_Name': i2, 'Cell_Phone': i3, 'Email_Address': i4,
+                        'Employee_Code': i5, 'Is_Active': i6, 'Created_At': i7, 'Updated_At': i8, 'Created_By': i9,
+                        'Updated_By': i10}
+        form = RCUpdate(initial=initial_data)
+        if 'filter' in request.POST:
+            id_ = request.POST.get('ID')
+            fn_ = request.POST.get('First_Name')
+            ln_ = request.POST.get('Last_Name')
+            cp_ = request.POST.get('Cell_Phone')
+            ea_ = request.POST.get('Email_Address')
+            ec_ = request.POST.get('Employee_Code')
+            ia_ = request.POST.get('Is_Active')
+            updated_at = now_
+            updated_by = request.POST.get('Updated_By')
+            dfsp = pd.DataFrame(
+                columns=['id', 'first_name', 'last_name', 'cell_phone', 'email_address', 'employee_code', 'is_active',
+                         'updated_at', 'updated_by_id'])
+            dfsp.loc[0] = id_, fn_, ln_, cp_, ea_, ec_, ia_, updated_at, updated_by
+            for index, row in dfsp.iterrows():
+                cursor.execute(
+                    "UPDATE RegionalCoaches SET first_name = ?, last_name = ?, cell_phone = ?, email_address = ?, "
+                    "employee_code = ?, is_active = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+                    (row['first_name'], row['last_name'], row['cell_phone'], row['email_address'],
+                     row['employee_code'], row['is_active'], row['updated_at'], row['updated_by_id'], row['id']))
+                cursor.commit()
+                rc_up = fetch_regional_coach_data_updated()
+                rc__ = rc_up.rc_data_updated()
+                context1 = {'html_table': rc__}
+                return render(request, "pages/pages/regional_coaches.html", context1)
+        return render(request, "pages/pages/edit_records/edit_rc.html",
+                      {'form': form, 'initial_data': initial_data})
+
     return render(request, "pages/pages/regional_coaches.html", context)
 
 def add_rc(request):
@@ -229,6 +363,57 @@ def a_c(request):
     ac_one = fetch_area_coach_data()
     ac_ = ac_one.ac_data()
     context = {'html_table': ac_}
+    now_ = datetime.now().replace(microsecond=0)
+    if 'word' in request.GET:
+        word_input = request.GET['word']
+        params = word_input
+        cursor.execute("SELECT * FROM AreaCoaches WHERE first_name LIKE '%' + ? + '%'", params)
+        rs1 = dictfetchall(cursor)
+        df = pd.DataFrame(rs1)
+        dfsd = df.to_records(index=False)
+        for i in dfsd:
+            i0 = (str(i[0]))
+            i1 = (str(i[1]))
+            i2 = (str(i[2]))
+            i3 = (str(i[3]))
+            i4 = (str(i[4]))
+            i5 = (str(i[5]))
+            i6 = (str(i[6]))
+            i7 = (str(i[7]))
+            i8 = (str(i[8]))
+            i9 = (str(i[9]))
+            i10 = (str(i[10]))
+        initial_data = {'ID': i0, 'First_Name': i1, 'Last_Name': i2, 'Cell_Phone': i3, 'Email_Address': i4,
+                        'Employee_Code': i5, 'Is_Active': i6, 'Created_At': i7, 'Updated_At': i8, 'Created_By': i9,
+                        'Updated_By': i10}
+        form = ACUpdate(initial=initial_data)
+        if 'filter' in request.POST:
+            id_ = request.POST.get('ID')
+            fn_ = request.POST.get('First_Name')
+            ln_ = request.POST.get('Last_Name')
+            cp_ = request.POST.get('Cell_Phone')
+            ea_ = request.POST.get('Email_Address')
+            ec_ = request.POST.get('Employee_Code')
+            ia_ = request.POST.get('Is_Active')
+            updated_at = now_
+            updated_by = request.POST.get('Updated_By')
+            dfsp = pd.DataFrame(
+                columns=['id', 'first_name', 'last_name', 'cell_phone', 'email_address', 'employee_code', 'is_active',
+                         'updated_at', 'updated_by_id'])
+            dfsp.loc[0] = id_, fn_, ln_, cp_, ea_, ec_, ia_, updated_at, updated_by
+            for index, row in dfsp.iterrows():
+                cursor.execute(
+                    "UPDATE AreaCoaches SET first_name = ?, last_name = ?, cell_phone = ?, email_address = ?, "
+                    "employee_code = ?, is_active = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+                    (row['first_name'], row['last_name'], row['cell_phone'], row['email_address'],
+                     row['employee_code'], row['is_active'], row['updated_at'], row['updated_by_id'], row['id']))
+                cursor.commit()
+                ac_up = fetch_area_coach_data_updated()
+                ac__ = ac_up.ac_data_updated()
+                context1 = {'html_table': ac__}
+                return render(request, "pages/pages/area_coaches.html", context1)
+        return render(request, "pages/pages/edit_records/edit_ac.html",
+                      {'form': form, 'initial_data': initial_data})
     return render(request, "pages/pages/area_coaches.html", context)
 
 def add_ac(request):
@@ -272,6 +457,57 @@ def b_p(request):
     bp_one = fetch_bp_data()
     bp_ = bp_one.bp_data()
     context = {'html_table': bp_}
+    now_ = datetime.now().replace(microsecond=0)
+    if 'word' in request.GET:
+        word_input = request.GET['word']
+        params = word_input
+        cursor.execute("SELECT * FROM BusinessPartners WHERE first_name LIKE '%' + ? + '%'", params)
+        rs1 = dictfetchall(cursor)
+        df = pd.DataFrame(rs1)
+        dfsd = df.to_records(index=False)
+        for i in dfsd:
+            i0 = (str(i[0]))
+            i1 = (str(i[1]))
+            i2 = (str(i[2]))
+            i3 = (str(i[3]))
+            i4 = (str(i[4]))
+            i5 = (str(i[5]))
+            i6 = (str(i[6]))
+            i7 = (str(i[7]))
+            i8 = (str(i[8]))
+            i9 = (str(i[9]))
+            i10 = (str(i[10]))
+        initial_data = {'ID': i0, 'First_Name': i1, 'Last_Name': i2, 'Cell_Phone': i3, 'Email_Address': i4,
+                        'Employee_Code': i5, 'Is_Active': i6, 'Created_At': i7, 'Updated_At': i8, 'Created_By': i9,
+                        'Updated_By': i10}
+        form = BPUpdate(initial=initial_data)
+        if 'filter' in request.POST:
+            id_ = request.POST.get('ID')
+            fn_ = request.POST.get('First_Name')
+            ln_ = request.POST.get('Last_Name')
+            cp_ = request.POST.get('Cell_Phone')
+            ea_ = request.POST.get('Email_Address')
+            ec_ = request.POST.get('Employee_Code')
+            ia_ = request.POST.get('Is_Active')
+            updated_at = now_
+            updated_by = request.POST.get('Updated_By')
+            dfsp = pd.DataFrame(
+                columns=['id', 'first_name', 'last_name', 'cell_phone', 'email_address', 'employee_code', 'is_active',
+                         'updated_at', 'updated_by_id'])
+            dfsp.loc[0] = id_, fn_, ln_, cp_, ea_, ec_, ia_, updated_at, updated_by
+            for index, row in dfsp.iterrows():
+                cursor.execute(
+                    "UPDATE BusinessPartners SET first_name = ?, last_name = ?, cell_phone = ?, email_address = ?, "
+                    "employee_code = ?, is_active = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+                    (row['first_name'], row['last_name'], row['cell_phone'], row['email_address'],
+                     row['employee_code'], row['is_active'], row['updated_at'], row['updated_by_id'], row['id']))
+                cursor.commit()
+                bp_up = fetch_bp_data_updated()
+                bp__ = bp_up.bp_data_updated()
+                context1 = {'html_table': bp__}
+                return render(request, "pages/pages/business_partners.html", context1)
+        return render(request, "pages/pages/edit_records/edit_bp.html",
+                      {'form': form, 'initial_data': initial_data})
     return render(request, "pages/pages/business_partners.html", context)
 
 def add_bp(request):
@@ -356,24 +592,57 @@ def e_(request):
 #     return render(request, "pages/pages/add_records/add_business_partner.html")
 
 def test(request):
-    if request.method == 'POST':
-        form2 = RC_Search(request.POST)
-        form = Store_Search(request.POST)  # Or MyModelForm(request.POST)
-        if form.is_valid() and form2.is_valid():
-            selected_option2 = form2.cleaned_data['my_dropdown']
-            selected_option = form.cleaned_data['my_dropdown']
-            print(selected_option)
+    pass
+#     region_one = fetch_region_data()
+#     region_ = region_one.region_data()
+#     context = {'html_table': region_}
+#
+#
+#     now_ = datetime.now().replace(microsecond=0)
+#
+#     if 'word' in request.GET:
+#         word_input = request.GET['word']
+#         params = word_input
+#         cursor.execute("SELECT * FROM Regions WHERE region_name LIKE '%' + ? + '%'", params)
+#         rs1 = dictfetchall(cursor)
+#         df = pd.DataFrame(rs1)
+#         dfsd = df.to_records(index=False)
+#         for i in dfsd:
+#             i0 = (str(i[0]))
+#             i1 = (str(i[1]))
+#             i2 = (str(i[2]))
+#             i3 = (str(i[3]))
+#             i4 = (str(i[4]))
+#             i5 = (str(i[5]))
+#             # print(i0)
+#         initial_data = {'ID': i0, 'Region_Name': i1, 'Created_At': i2, 'Updated_At': i3, 'Created_By': i4, 'Updated_By': i5}
+#         form = RegionUpdate(initial=initial_data)
+#         if 'filter' in request.POST:
+#             id_ = request.POST.get('ID')
+#             rn_ = request.POST.get('Region_Name')
+#             updated_at = now_
+#             updated_by = request.POST.get('Updated_By')
+#             dfsp = pd.DataFrame(
+#                 columns=['id', 'region_name', 'updated_at', 'updated_by_id'])
+#             dfsp.loc[0] = id_, rn_, updated_at, updated_by
+#             for index, row in dfsp.iterrows():
+#                 cursor.execute("UPDATE Regions SET region_name = ?, updated_at = ?, updated_by_id = ? WHERE id = ?",
+#                                (row['region_name'], row['updated_at'], row['updated_by_id'], row['id']))
+#
+#                 cursor.commit()
+#                 region_one = fetch_region_data_updated()
+#                 region_ = region_one.region_data_updated()
+#                 context1 = {'html_table': region_}
+#                 return render(request, "pages/pages/testing/test.html", context1)
+#
+#
+#         return render(request, "pages/pages/testing/test_table.html", {'form': form, 'initial_data': initial_data})
+#
+#
+#     return render(request, "pages/pages/testing/test.html", context)
 
 
-    else:
-        form = Store_Search()
-        form2 = RC_Search()
 
-    if 'id_subject' in request.GET:
-        sd_input = request.GET['id_1']
-        print(sd_input)
-
-    return render(request, 'pages/pages/testing/test.html', {'form': form, 'form2': form2})
 
 # Pages -> Profile
 def profile_overview(request):
@@ -486,7 +755,6 @@ class CoverLoginView(LoginView):
 class IllustrationLoginView(LoginView):
     template_name = "authentication/signin/illustration.html"
     form_class = LoginForm
-
 
 # Authentication -> Reset
 class BasicResetView(PasswordResetView):

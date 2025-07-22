@@ -31,7 +31,9 @@ urlpatterns = [
     path("add_business_partner/", views.add_bp, name="add_bp"),
     path("employees/", views.e_, name="e_"),
     #path("add_employee/", views.add_e, name="add_e"),
-    path("test/", views.test, name="test"),
+     path("test/", views.test, name="test"),
+    # path("test/", views.button_pressed, name="button_pressed"),
+
 
 
 

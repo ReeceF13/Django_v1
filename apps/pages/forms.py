@@ -19,6 +19,19 @@ from datetime import datetime
 conn = pyodbc.connect(conn_str)
 cursor = conn.cursor()
 
+from apps.models.base import BaseModel
+from django.db import models
+from django.core.exceptions import ValidationError
+import re
+
+
+def validate_store_id(value):
+    """Validate store ID format: 3 letters + 1-5 numbers"""
+    pattern = r'^[A-Z]{3}[0-9]{1,5}$'
+    if not re.match(pattern, value):
+        raise ValidationError(
+            'Store ID must be 3 uppercase letters followed by 1-5 numbers (e.g., ADP1, ADP98765)'
+        )
 class RegistrationForm(UserCreationForm):
     password1 = forms.CharField(
         label=_("Password"),
@@ -121,6 +134,9 @@ class UserPasswordChangeForm(PasswordChangeForm):
         ),
         label="Confirm New Password",
     )
+
+
+
 from django import forms
 from .models import Category
 
@@ -184,3 +200,110 @@ class RC_Search(forms.Form):
         choices=[],
         label="Select Regional Coach"
     )
+
+class RegionUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Region_Name = forms.CharField(max_length=100)
+    Created_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+class StoreUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Store_ID = forms.CharField(max_length=100)
+    Store_Name = forms.CharField(max_length=100)
+    Region = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Head_Office = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+class RCUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    First_Name = forms.CharField(max_length=100)
+    Last_Name = forms.CharField(max_length=100)
+    Cell_Phone = forms.CharField(max_length=100)
+    Email_Address = forms.CharField(max_length=100)
+    Employee_Code = forms.CharField(max_length=100)
+    Is_Active = forms.CharField(max_length=100)
+    Created_At = forms.CharField(max_length=100,)
+    Updated_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+class ACUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    First_Name = forms.CharField(max_length=100)
+    Last_Name = forms.CharField(max_length=100)
+    Cell_Phone = forms.CharField(max_length=100)
+    Email_Address = forms.CharField(max_length=100)
+    Employee_Code = forms.CharField(max_length=100)
+    Is_Active = forms.CharField(max_length=100)
+    Created_At = forms.CharField(max_length=100,)
+    Updated_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+
+class BPUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    First_Name = forms.CharField(max_length=100)
+    Last_Name = forms.CharField(max_length=100)
+    Cell_Phone = forms.CharField(max_length=100)
+    Email_Address = forms.CharField(max_length=100)
+    Employee_Code = forms.CharField(max_length=100)
+    Is_Active = forms.CharField(max_length=100)
+    Created_At = forms.CharField(max_length=100,)
+    Updated_At = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Created_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Updated_By = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
