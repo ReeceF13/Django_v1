@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
 
-<form method="post">
-        {% csrf_token %} <!-- Essential for security -->
-        {{ form.as_p }} <!-- Renders form fields as paragraphs -->
-        <input type='submit' value="Save" name="filter">
+
+    <form action="" method="GET">
+        {% csrf_token %}
+        <a style="color: aliceblue" onclick="location.href='{% url 'a_c' %}'">{{ form2 }}</a>
     </form>
+
 
 <style>
             h1,

@@ -117,20 +117,13 @@
                   <br>
             <div align="center">
               <form action="" method="GET">
-                <label for="fnInput">Partner:</label>
-                <input type="text" name="fnInput" placeholder="Partner First Name">
-                <label for="lnInput">Area Coach:</label>
-                <input type="text" name="lnInput" placeholder="Area Coach First Name">
+                {% csrf_token %}
+                {{ form2.as_p }}
+                {{ form3.as_p }}
                 <label for="cInput">Start Date:</label>
                 <input type="text" name="cInput" placeholder="Date">
-                <br>
-                <br>
                 <label for="eInput">End Date:</label>
                 <input type="text" name="eInput" placeholder="Date">
-
-
-                <label for="nameInput">Username:</label>
-                <input type="text" name="nameInput" placeholder="Your Username">
                 <br>
                 <br>
                 <input onclick="location.href='{% url 'r_c' %}'" type='submit' name='button' value="Submit">

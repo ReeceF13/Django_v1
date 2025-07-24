@@ -19,7 +19,7 @@ from datetime import datetime
 conn = pyodbc.connect(conn_str)
 cursor = conn.cursor()
 
-from apps.models.base import BaseModel
+from apps.models.core import *
 from django.db import models
 from django.core.exceptions import ValidationError
 import re
@@ -307,3 +307,5 @@ class BPUpdate(forms.Form):
         super().__init__(*args, **kwargs)
         if user:
             self.fields['email'].initial = user.email
+
+

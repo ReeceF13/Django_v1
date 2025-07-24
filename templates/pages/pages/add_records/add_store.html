@@ -12,17 +12,16 @@
       <div class="container-fluid">
 
         <div class="header-body">
-
           <!-- Card stats -->
           <div class="row">
 
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
+                <div style="background-color: #e8601b" class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Stores</h5>
-                      <span class="h2 font-weight-bold mb-0">3</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
+                      <span class="h2 font-weight-bold mb-0"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -35,11 +34,11 @@
             </div>
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
+                <div style="background-color: #e8601b" class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New Stores</h5>
-                      <span class="h2 font-weight-bold mb-0">2</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
+                      <span class="h2 font-weight-bold mb-0"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -52,11 +51,11 @@
             </div>
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #efc090" class="card-body">
+                <div style="background-color: #e8601b" class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">S</h5>
-                      <span class="h2 font-weight-bold mb-0">9</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
+                      <span class="h2 font-weight-bold mb-0"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -69,11 +68,11 @@
             </div>
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div style="background-color: #070707" class="card-body">
+                <div style="background-color: #e8601b" class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">TBA</h5>
+                      <span class="h2 font-weight-bold mb-0"></span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -87,7 +86,6 @@
           </div>
         </div>
       </div>
-    </div>
     <br>
     <br>
     <div class="container-fluid mt--7">
@@ -101,18 +99,15 @@
                   <br>
             <div align="center">
               <form action="" method="GET">
+                {% csrf_token %}
+                {{ form2.as_p }}<!-- Essential for security -->
+                <!-- Renders form fields as paragraphs -->
                 <label for="ksaInput">KSA:</label>
                 <input type="text" name="ksaInput" placeholder="Store KSA">
                 <label for="storeInput">Store Name:</label>
                 <input type="text" name="storeInput" placeholder="Store Name">
-                <label for="regionInput">Region:</label>
-                <input type="text" name="regionInput" placeholder="North or South">
-                <br>
-                <br>
                 <label for="headInput">Head Office:</label>
                 <input type="text" name="headInput" placeholder="True or False">
-                <label for="nameInput">Username:</label>
-                <input type="text" name="nameInput" placeholder="Your Username">
                 <br>
                 <br>
 
