@@ -1,83 +1,94 @@
 {% extends "layouts/base.html" %}
 {% load static %}
 {% block content %}
-
-
-    <form action="" method="GET">
-        {% csrf_token %}
-        <a style="color: aliceblue" onclick="location.href='{% url 'a_c' %}'">{{ form2 }}</a>
-    </form>
-
-
-<style>
-            h1,
-
-        label {
-            color: aliceblue;
-            display: block;
-            margin-top: 10px;
-        }
-
-        input,
-        textarea {
-            width: 200px;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            margin: 10px;
-            padding: 8px 16px;
-            background-color: #f1922f;
-            color: #050505;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        table {
-            background-color: aliceblue;
+  <h2 style="color: aliceblue" align="center">Stores</h2>
+    <h4 style="color: aliceblue" align="center">Select Store</h4>
+  <style>
+    table {
+            background-color: #ece6e6;
             border-collapse: collapse;
             margin-bottom: 20px;
             margin-left: 20px;
             margin-right: 20px;
-
             width: 98%;
+            color: #0a0b0b;
         }
-        form {
-
-            color: aliceblue;
-            justify-content: center;
-            align-items: center;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            margin-left: 700px;
-            margin-right: 20px;
-            width: 98%;
-        }
-
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+            background-color: #C21D2b;
             color: #fff;
         }
-</style>
-<script>
-  function goBack() {
-    window.history.back();
-  }
-</script>
-{% endblock %}
+    td:hover {
+      background-color: #eacf4b;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+<body>
+  {{ html_table| safe }}
+  <script>
+    // Get cells in the first column (Name column)
+    const cells = document.querySelectorAll('#myTable td:nth-child(3)');
+
+    // Add click event listener to each cell in the first column
+    cells.forEach(cell => {
+      cell.addEventListener('click', function() {
+        // Get row, column index, and cell content
+        const rowIndex = this.parentNode.rowIndex;
+        const colIndex = this.cellIndex;
+        const cellContent = this.textContent;
+
+        // Send data to Django view via AJAX
+        fetch('{% url "handle_click" %}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Include CSRF token in production
+            // 'X-CSRFToken': getCookie('csrftoken'),
+          },
+          body: JSON.stringify({
+            value: cellContent,
+            rowIndex: rowIndex,
+            colIndex: colIndex
+          })
+        })
+        .then(response => response.json())
+        // .then(data => {
+        //   // Display server response (optional)
+        //   alert(data.message);
+        // })
+        // .catch(error => {
+        //   console.error('Error:', error);
+        //   alert('Error sending data to server');
+        // });
+      });
+    });
+
+    // Function to get CSRF token (uncomment in production)
+    /*
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    */
+  </script>
+</body>
+{% endblock content %}
+</html>
+"""
+

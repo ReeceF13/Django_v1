@@ -36,7 +36,7 @@ class fetch_store_data:
             dfs = dfs.drop('Created By', axis=1)
             dfs = dfs.drop('Updated By', axis=1)
             dfs = dfs.drop('region_name', axis=1)
-            dfs = dfs.to_html(index=False)
+            dfs = dfs.to_html(index=False, table_id='myTable')
             return dfs
         except:
             dfs = "No Data Found"

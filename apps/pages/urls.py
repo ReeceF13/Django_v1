@@ -39,6 +39,7 @@ urlpatterns = [
     path("add_employee/", views_employees.add_employee, name="add_e"),
     #TESTING
     path("test/", views_testing.test, name="test"),
+    path("handle_click/", views_testing.handle_click, name="handle_click"),
     # path("test/", views.button_pressed, name="button_pressed"),
 
 

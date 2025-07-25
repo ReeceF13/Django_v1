@@ -69,3 +69,26 @@ def region_data():
     # df = df.to_html(index=False)
     #print(df)
 # region_data()
+def get_current_hierarchy():
+    """
+    Get current complete hierarchy for analytics
+    """
+
+
+    cursor.execute("SELECT s.store_id, s.store_name, r.region_name, "
+                   "rc.first_name + ' ' + rc.last_name as regional_coach_name, "
+                   "ac.first_name + ' ' + ac.last_name as area_coach_name, "
+                   "bp.first_name + ' ' + bp.last_name as business_partner_name "
+                   "FROM Stores s "
+                   "LEFT JOIN Regions r ON s.region_id = r.id "
+                   "LEFT JOIN RegionalCoachAssignments rca ON s.id = rca.store_id "
+                   "LEFT JOIN RegionalCoaches rc ON rca.regional_coach_id = rc.id "
+                   "LEFT JOIN AreaCoachAssignments aca ON rc.id = aca.regional_coach_id "
+                   "LEFT JOIN AreaCoaches ac ON aca.area_coach_id = ac.id "
+                   "LEFT JOIN BusinessPartnerAssignments bpa ON ac.id = bpa.area_coach_id "
+                   "LEFT JOIN BusinessPartners bp ON bpa.business_partner_id = bp.id WHERE store_name='TEST_now'")
+    rs1 = dictfetchall(cursor)
+    df = pd.DataFrame(rs1)
+
+    # print(df.to_string())
+get_current_hierarchy()
