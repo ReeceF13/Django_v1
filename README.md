@@ -15,26 +15,116 @@ The product is designed to deliver the best possible user experience with highly
 
 <br />
 
+## Files in use
+- apps
+  - db
+  - models
+  - pages
+    - admin
+    - forms
+    - models
+    - urls
+    - views
+    - views_area_coach
+    - views_business_partner
+    - views_employees
+    - views_regional_coach
+    - views_regions
+    - views_stores
+    - views_testing
+ 
+
+  - static
+    - assets
+      - css
+      - img
+
+
+  - templates
+    - ## pages
+      - ## pages
+        - ## add_records
+            - add_area_coach.html
+            - add_business_partner.html
+            - add_employee.html
+            - add_region.html
+            - add_regional_coach.html
+            - add_store.html
+          
+            - ## assignments
+              - ac_assignments.html
+              - add_ac_assignments.html
+              - ad_bp_asignments.html
+              - add_rc_assignments.html
+              - bp_asignments.html
+              - rc_assignments.html
+
+        - ## edit_records
+          - edit_ac.html
+          - edit_aca.html
+          - edit_bp.html
+          - edit_bpa.html
+          - edit_rc.html
+          - edit_rca.html
+          - edit_regions.html
+          - edit_stores.html
+      
+        - ## testing
+          - test.html
+          - test_table.html
+        - area_coaches.html
+        - business_partners.html
+        - employees.html
+        - region_table.html
+        - regional_coaches.html
+        - stores.html
+        
+
+
 ## Features
 
-- Simple, Easy-to-Extend Codebase
-- Soft UI Dashboard PRO Design - Full Integration 
-- Bootstrap 5 Styling 
-- Session-based Authentication, Password recovery
-- OAuth (GitHub & Google)
-- DB Persistence: SQLite (default), can be used with MySql, PgSql
-- Apps
-  - Charts
-  - Server-Side Datatables
-  - API via DRF
-  - Extended Users Profile
-  - Async Tasks (Celery)
-- Docker 
-- CI/CD integration for Render 
+- ## Dashboard 
 
-![Django Soft Dashboard PRO - Premium starter powered by Django and Bootstrap 5 - actively supported provided by App-Generator.](https://github.com/user-attachments/assets/828b0f83-1a37-4390-8685-411b4f408cdb)
+
+- ## Regions
+  -  View Regions
+  - Add Regions
+ 
+
+- ## Stores
+  - View stores
+  - View Stores
+
+  
+- ## Regional Coaches
+  - View Coaches
+  - Add Coaches
+  - View Assignments
+  - Add Assignments
+
+  
+- ## Area Coaches
+  - View Coaches
+  - Add Coaches
+  - View Assignments
+  - Add Assignments
+ 
+
+- ## Business Partners
+  - View Partners
+  - Add Partners
+  - View Assignments
+  - Add Assignments
+
+
+- ## Employees
+  - still in testing
+
+
+- ## Testing
+  - Test view of staff assigned to Store, by clicking store name, prints to console 
+![Dashboard.jpg](static/assets/img/screen_shots/Dashboard.jpg)
 
 <br /> 
 
 ---
-[Django Soft Dashboard PRO](https://app-generator.dev/product/soft-ui-dashboard-pro/django/) - **Django** Starter provided by [App Generator](https://app-generator.dev)
