@@ -2,27 +2,17 @@
 {% load static %}
 {% block content %}
 
-            <form action="" method="GET" style="color: aliceblue">
-            <p align="right">
-                <input name="word" type="text" placeholder="Enter ID">
-                <input type='submit' name='button' value="Submit">
-            <br>
-            <br>
-            </p>
-            </form>
+<form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type='submit' value="Save" name="filter">
+    </form>
 
-          <table>
-        <h2 style="color: aliceblue" align="center">Regional Coach Assignments</h2>
-        {{ html_table|safe }}
-        </table>
-        </div>
-      </div>
-    </div>
-  </div>
 <style>
             h1,
 
         label {
+            color: aliceblue;
             display: block;
             margin-top: 10px;
         }
@@ -51,14 +41,26 @@
         }
 
         table {
-            background-color: #ece6e6;
+            background-color: aliceblue;
             border-collapse: collapse;
             margin-bottom: 20px;
             margin-left: 20px;
             margin-right: 20px;
+
             width: 98%;
-            color: #0a0b0b;
         }
+        form {
+
+            color: aliceblue;
+            justify-content: center;
+            align-items: center;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            margin-left: 700px;
+            margin-right: 20px;
+            width: 98%;
+        }
+
 
         th,
         td {
@@ -68,8 +70,13 @@
         }
 
         th {
-            background-color: #C21D2b;
+            background-color: #4CAF50;
             color: #fff;
         }
 </style>
-{% endblock content %}
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+{% endblock %}

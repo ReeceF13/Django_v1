@@ -205,14 +205,6 @@ class RegionUpdate(forms.Form):
     ID = forms.CharField(max_length=100,
         widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     Region_Name = forms.CharField(max_length=100)
-    Created_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Get user from kwargs
         super().__init__(*args, **kwargs)
@@ -224,18 +216,10 @@ class StoreUpdate(forms.Form):
         widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     Store_ID = forms.CharField(max_length=100)
     Store_Name = forms.CharField(max_length=100)
-    Region = forms.CharField(max_length=100,
+    Region_ID = forms.CharField(max_length=100,
         widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Head_Office = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Head_Office = forms.CharField(max_length=100)
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Get user from kwargs
         super().__init__(*args, **kwargs)
@@ -251,13 +235,7 @@ class RCUpdate(forms.Form):
     Email_Address = forms.CharField(max_length=100)
     Employee_Code = forms.CharField(max_length=100)
     Is_Active = forms.CharField(max_length=100)
-    Created_At = forms.CharField(max_length=100,)
-    Updated_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Get user from kwargs
         super().__init__(*args, **kwargs)
@@ -273,13 +251,6 @@ class ACUpdate(forms.Form):
     Email_Address = forms.CharField(max_length=100)
     Employee_Code = forms.CharField(max_length=100)
     Is_Active = forms.CharField(max_length=100)
-    Created_At = forms.CharField(max_length=100,)
-    Updated_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Get user from kwargs
         super().__init__(*args, **kwargs)
@@ -295,17 +266,52 @@ class BPUpdate(forms.Form):
     Email_Address = forms.CharField(max_length=100)
     Employee_Code = forms.CharField(max_length=100)
     Is_Active = forms.CharField(max_length=100)
-    Created_At = forms.CharField(max_length=100,)
-    Updated_At = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Created_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
-    Updated_By = forms.CharField(max_length=100,
-        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)  # Get user from kwargs
         super().__init__(*args, **kwargs)
         if user:
             self.fields['email'].initial = user.email
 
+class RCAUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Regional_Coach_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Store_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Start_Date = forms.CharField(max_length=100)
+    End_Date = forms.CharField(max_length=100)
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+class ACAUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Area_Coach_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Regional_Coach_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Start_Date = forms.CharField(max_length=100)
+    End_Date = forms.CharField(max_length=100)
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email
+class BPAUpdate(forms.Form):
+    ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Business_Partner_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Area_Coach_ID = forms.CharField(max_length=100,
+        widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Start_Date = forms.CharField(max_length=100)
+    End_Date = forms.CharField(max_length=100)
 
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  # Get user from kwargs
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['email'].initial = user.email

@@ -83,5 +83,5 @@ def testing():
     rs1 = dictfetchall(cursor)
     dfs = pd.DataFrame(rs1)
     print(dfs.to_string())
-testing()
+# testing()
 

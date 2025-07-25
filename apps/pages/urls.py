@@ -1,17 +1,11 @@
 from django.urls import path
-from apps.pages import views, views2
+from apps.pages import views, views_testing, views_regions, views_stores, views_regional_coach, views_area_coach, views_business_partner, views_employees
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
     # Dashboard
     path("", views.default, name="index"),
-    path("automotive", views.automotive, name="automotive"),
-    path("smart-home", views.smart_home, name="smart_home"),
-    path("crm", views.crm, name="crm"),
-    # Dashboard -> VR
-    path("vr/vr-default/", views.vr_default, name="vr_default"),
-    path("vr/vr-info/", views.vr_info, name="vr_info"),
     # Pages
     path("pages/messages/", views.messages, name="messages"),
     path("pages/widgets/", views.widgets, name="widgets"),
@@ -20,30 +14,31 @@ urlpatterns = [
     path("pages/notifications/", views.notifications, name="notifications"),
     #STORE MANAGEMENT PAGES
     #REGIONS
-    path("regions/", views.regions_, name="regions"),
-    path("add_region/", views.regions_add, name="regions_add"),
+    path("regions/", views_regions.regions_, name="regions"),
+    path("add_region/", views_regions.regions_add, name="regions_add"),
     #STORES
-    path("stores/", views.stores_, name="stores"),
-    path("add_store/", views.store_add, name="stores_add"),
-    #RC
-    path("regional_coaches/", views.r_c, name="r_c"),
-    path("add_regional_coach/", views.add_rc, name="add_rc"),
-    path("add_regional_coach_assignment/", views.add_rc_a, name="add_rc_a"),
-    path("regional_coach_assignment/", views.view_rc_a, name="view_rc_a"),
+    path("stores/", views_stores.view_stores, name="stores"),
+    path("add_store/", views_stores.add_store, name="stores_add"),
+    #REGIONAL COACH
+    path("regional_coaches/", views_regional_coach.view_regional_coaches, name="r_c"),
+    path("add_regional_coach/", views_regional_coach.add_regional_coach, name="add_rc"),
+    path("add_regional_coach_assignment/", views_regional_coach.add_regional_coach_assignments, name="add_rc_a"),
+    path("regional_coach_assignment/", views_regional_coach.view_regional_coach_assignments, name="view_rc_a"),
     #AC
-    path("area_coaches/", views.a_c, name="a_c"),
-    path("add_area_coach/", views.add_ac, name="add_ac"),
-    path("add_area_coach_assignment/", views.add_ac_a, name="add_ac_a"),
-    path("area_coach_assignment/", views.view_ac_a, name="view_ac_a"),
+    path("area_coaches/", views_area_coach.view_area_coaches, name="a_c"),
+    path("add_area_coach/", views_area_coach.add_area_coach, name="add_ac"),
+    path("add_area_coach_assignment/", views_area_coach.add_area_coach_assignments, name="add_ac_a"),
+    path("area_coach_assignment/", views_area_coach.view_area_coach_assignments, name="view_ac_a"),
     #BP
-    path("business_partners/", views.b_p, name="b_p"),
-    path("add_business_partner/", views.add_bp, name="add_bp"),
-    path("business_partners_assignment/", views.view_bp_a, name="view_bp_a"),
-    path("add_business_partner_assignment/", views.add_bp_a, name="add_bp_a"),
+    path("business_partners/", views_business_partner.view_business_partners, name="b_p"),
+    path("add_business_partner/", views_business_partner.add_business_partner, name="add_bp"),
+    path("business_partners_assignment/", views_business_partner.view_business_partner_assignments, name="view_bp_a"),
+    path("add_business_partner_assignment/", views_business_partner.add_business_partner_assignment, name="add_bp_a"),
     #EMPLOYEES
-    path("employees/", views.e_, name="e_"),
-    path("add_employee/", views.add_e, name="add_e"),
-    path("test/", views2.test, name="test"),
+    path("employees/", views_employees.view_employees, name="e_"),
+    path("add_employee/", views_employees.add_employee, name="add_e"),
+    #TESTING
+    path("test/", views_testing.test, name="test"),
     # path("test/", views.button_pressed, name="button_pressed"),
 
 

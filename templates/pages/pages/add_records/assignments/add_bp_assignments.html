@@ -118,8 +118,9 @@
             <div align="center">
               <form action="" method="GET">
                 {% csrf_token %}
-                {{ form2.as_p }}
+
                 {{ form3.as_p }}
+                {{ form2.as_p }}
                 <label for="cInput">Start Date:</label>
                 <input type="text" name="cInput" placeholder="Date">
                 <label for="eInput">End Date:</label>
